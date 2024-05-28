@@ -32,9 +32,10 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
     email,
     password: hashedPassword,
   });
-  //! process
+  //! jwt token generation
   const token = sign({ sub: newUser._id }, config.jwtSecret as string, {
     expiresIn: "7d",
+    algorithm:"HS256"
   });
 
   //! response
