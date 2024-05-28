@@ -1,0 +1,5 @@
+{
+    "better-comments.highlightPlainText": true,
+    "editor.renderWhitespace": "all",
+    "editor.fontFamily": "'cascadia code',Consolas,'Courier New',monospace,'Segoe Script'"
+}
