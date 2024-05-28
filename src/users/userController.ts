@@ -15,9 +15,15 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
     return next(error);
   }
   //! database call.
-  const user = await userModal.findOne({
-    email: email,
-  });
+
+  try {
+    const user = await userModal.findOne({
+      email: email,
+    });
+  } catch (err){
+return next (createHttpError(500,"Error while getting user"));
+  }
+  
 
   if (user) {
     const error = createHttpError(400, "User already exit with this email");
@@ -35,7 +41,7 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
   //! jwt token generation
   const token = sign({ sub: newUser._id }, config.jwtSecret as string, {
     expiresIn: "7d",
-    algorithm:"HS256"
+    algorithm:"HS256",
   });
 
   //! response
