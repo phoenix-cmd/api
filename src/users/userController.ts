@@ -1,7 +1,7 @@
 
 import { NextFunction, Request, Response, request } from "express";
 import createHttpError from "http-errors";
-import userModal from "./userModel";
+import userModel from "./userModel";
 import bcrypt from "bcrypt";
 import { sign } from "jsonwebtoken";
 import { config } from "../config/config";
@@ -38,7 +38,7 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
   
   let newUser : User;
   try{
-    newUser = await userModal.create({
+    newUser = await userModel.create({
       name,
       email,
       password: hashedPassword,
@@ -69,7 +69,7 @@ if(!email  || !password){
 return next(createHttpError(400,"all fields are required"));
 }
 
-const user = await userModal.findOne({email});
+const user = await userModel.findOne({email});
 if (!user){
   return next (createHttpError(404,"User not found"));
 }
