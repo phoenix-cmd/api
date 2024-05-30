@@ -17,7 +17,7 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
   }
 
   //! database call.
-  const user = await userModal.findOne({
+  const user = await userModel.findOne({
     email: email,
   });
 
@@ -64,7 +64,25 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
 }
 };
 const loginUser =async (req:Request,res:Response,next:NextFunction)=>{
+const{email,password}= req.body;
+if(!email  || !password){
+return next(createHttpError(400,"all fields are required"));
+}
 
+const user = await userModal.findOne({email});
+if (!user){
+  return next (createHttpError(404,"User not found"));
+}
+const isMatch= await bcrypt.compare(password,user.password);
+
+if (!isMatch){
+  return next(createHttpError(401,"Invalid credentials"));
+}
+//create new access token
+const token = sign({ sub:user._id }, config.jwtSecret as string, {
+  expiresIn: "7d",
+  algorithm:'HS256',
+});
 res.json({message:"OK"})
 }
 export { createUser,loginUser };
