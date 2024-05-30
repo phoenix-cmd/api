@@ -5,7 +5,8 @@ const createBook= async(
     req: Request, res: Response, next:NextFunction
 
 )=>{
-const{}= req.body;
+//const{}= req.body;
+console.log('files',req.files);
 res.json({});
 
 
