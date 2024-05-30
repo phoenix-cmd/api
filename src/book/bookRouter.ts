@@ -11,8 +11,8 @@ limits:{fileSize: 3e7}// 30 mb
 // routes
 bookRouter.post("/",
 upload.fields([
-    {name:'coverimage',maxCount:1},
-    {name:'file',maxCount:1},
+    {name:"coverImage",maxCount:1},
+    {name:"file",maxCount:1},
 ]),
 createBook
 );
