@@ -83,6 +83,6 @@ const token = sign({ sub:user._id }, config.jwtSecret as string, {
   expiresIn: "7d",
   algorithm:'HS256',
 });
-res.json({message:"OK"})
+res.json({accessToken:token})
 }
 export { createUser,loginUser };
