@@ -19,6 +19,20 @@ const uploadResult = await cloudinary.uploader.upload(filePath,{
    folder:'book-covers',
 format: coverImageMimeType,
 });
+const bookFileName = files.file[0].filename;
+const bookFilePath= path.resolve(__dirname,
+    "../../public/data/uploads",
+bookFileName
+    );
+const bookFileUploadResult = await cloudinary.uploader.upload(bookFilePath,{
+    resource_type:'raw',
+filename_override:bookFileName,
+    folder:'book-pdfs',
+    format:"pdf",
+});
+console.log('bookFileUploadResult',bookFileUploadResult);
+
+
 console.log('uploadResult',uploadResult);
 res.json({});
 

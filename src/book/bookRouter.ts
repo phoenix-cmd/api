@@ -5,6 +5,7 @@ import multer from "multer";
 const bookRouter = express.Router();
 const upload = multer({
 dest: path.resolve(__dirname,'../../public/data/uploads'),
+// to do: put limit 10 mb on multer
 limits:{fileSize: 3e7}// 30 mb
 
 })
